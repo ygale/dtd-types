@@ -1,0 +1,25 @@
+name: dtd-types
+version: 0.0.0.1
+synopsis: Basic types for representing XML DTDs
+license: BSD3
+license-file: license.txt
+author: Yitzchak Gale
+maintainer: gale@sefer.org
+category: Data
+build-type: Simple
+cabal-version: >=1.6
+category: Text, XML
+stability: experimental
+bug-reports: mailto:gale@sefer.org
+
+source-repository head
+  type: darcs
+  location: http://code.haskell.org/dtd/dtd-types/
+
+library
+  build-depends:
+      base >=3 && < 5
+    , text
+
+  exposed-modules:
+    Data.XML.DTD.Types
