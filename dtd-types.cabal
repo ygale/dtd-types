@@ -20,6 +20,7 @@ library
   build-depends:
       base >=3 && < 5
     , text
+    , xml-types ==3.*
 
   exposed-modules:
     Data.XML.DTD.Types
