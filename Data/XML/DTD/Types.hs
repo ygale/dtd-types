@@ -6,31 +6,32 @@
 -- Maintainer  :  Yitzchak Gale <gale@sefer.org>
 -- Portability :  portable
 --
--- This module provide basic type to represent an XML Document Type
+-- This module provides types to represent an XML Document Type
 -- Declaration (DTD) as defined in W3C specifications
--- (http://www.w3.org/XML/Core/#Publications). It is intended to be
--- compatible with and extend the set of types in "Data.XML.Types" in
--- the xml-types package.
+-- (<http://www.w3.org/XML/Core/#Publications>). It is intended to be
+-- compatible with and extend the set of types in "Data.XML.Types"
+-- provided by the xml-types package.
 --
--- Following the philosophy of Data.XML.Types, the types in this
--- module are not inteded to be a strict and complete representation
--- of the model in the W3C specifications; rather, it is intended to
--- be convenient for the kinds of processing of DTDs that is commonly
--- done in practice.
+-- Following the philosophy of @Data.XML.Types@, the types in this
+-- module are not intended to be a strict and complete representation
+-- of the model in the W3C specifications; rather, they are intended
+-- to be convenient and type-safe for the kinds of processing of DTDs
+-- that are commonly done in practice. As such, this model is
+-- compatible with both Version 1.0 and Version 1.1 of the XML
+-- specification.
 --
 -- Therefore, these types are not suitable for type-level validation
--- of the syntax of a DTD. For example: these types are much more
--- lenient than the spec about the characters that are allowed in
--- various locations in a DTD. Entities of various kinds only appear
+-- of the syntax of a DTD. For example: these types are more
+-- lenient than the specs about the characters that are allowed in
+-- various locations in a DTD; entities of various kinds only appear
 -- as distinct syntactic elements in places where they are commonly
--- needed when processing DTDs. Etc.
+-- needed when processing DTDs; etc.
 --
--- As in Data.XML.Types, this module omits syntactic elements whose
--- purpose is to provide meta-information about the DTD itself. These
--- include the @\"?xml\"@ text declaration, and conditional sections.
+-- Conditional sections are not represented in these types. They
+-- should be handled directly by parsers and renderers, if needed.
 
 {-
-Copyright (c) 2011Suite Solutions Ltd., Israel. All rights reserved.
+Copyright (c) 2011 Suite Solutions Ltd., Israel. All rights reserved.
 
 For licensing information, see the BSD3-style license in the file
 license.txt that was originally distributed by the author together
