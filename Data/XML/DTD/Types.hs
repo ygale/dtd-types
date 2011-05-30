@@ -73,7 +73,7 @@ import Data.XML.Types (ExternalID)
 
 -- | A 'DTD' is a sequence components in any order.
 data DTD = DTD
-             { dtdTextDecl :: DTDTextDecl
+             { dtdTextDecl :: Maybe DTDTextDecl
              , dtdComponents :: [DTDComponent]
              }
   deriving (Show, Eq)
