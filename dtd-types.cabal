@@ -2,7 +2,7 @@ name: dtd-types
 version: 0.0.0.1
 synopsis: Basic types for representing XML DTDs
 description:
-  This module provides types to represent an XML Document Type
+  This package provides types to represent an XML Document Type
   Declaration (DTD) as defined in W3C specifications
   (<http://www.w3.org/XML/Core/#Publications>). It is intended to be
   compatible with and extend the set of types in "Data.XML.Types"
