@@ -84,7 +84,7 @@ instance Typeable DTD where
 -- | The @?xml@ text declaration at the beginning of a DTD.
 data DTDTextDecl =
      DTDTextDecl
-       { dtdXMLVersion :: Maybe Text,
+       { dtdXMLVersion :: Maybe Text
        , dtdEncoding :: Text
        }
   deriving (Show, Eq)
