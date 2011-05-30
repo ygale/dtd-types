@@ -44,7 +44,7 @@ module Data.XML.DTD.Types
   , DTDTextDecl (..)
   , DTDComponent (..)
 	
-    -- * Entity declarations
+    -- * Entity declarations and references
   , EntityDecl (..)
   , PEContent (..)
   , PERef
@@ -108,23 +108,23 @@ instance Typeable DTDComponent where
 
 -- | A declaration of an entity.
 data EntityDecl =
-    InternalEntityDecl                   -- ^ An internal general entity
-      { entityDeclName :: Text
-      , entityDeclValue :: Text
-      } |
-    ExternalEntityDecl                   -- ^ An external general
-                                         -- entity, parsed or
-                                         -- unparsed. It is unparsed
-                                         -- if a notation is
-                                         -- specified.
-      { entityDeclName :: Text
-      , entityDeclID :: ExternalID
-      , entityDeclNotation :: Maybe Text
-      } |
-    ParameterEntityDecl                  -- ^ A parameter entity
-      { entityDeclName :: Text
-      , peDeclValue :: [PEContent]
-      }
+     InternalEntityDecl                   -- ^ An internal general entity
+       { entityDeclName :: Text
+       , entityDeclValue :: Text
+       }
+   | ExternalEntityDecl                   -- ^ An external general
+                                          -- entity, parsed or
+                                          -- unparsed. It is unparsed
+                                          -- if a notation is
+                                          -- specified.
+       { entityDeclName :: Text
+       , entityDeclID :: ExternalID
+       , entityDeclNotation :: Maybe Text
+       }
+   | ParameterEntityDecl                  -- ^ A parameter entity
+       { entityDeclName :: Text
+       , peDeclValue :: [PEContent]
+       }
   deriving (Show, Eq)
 
 instance Typeable EntityDecl where
