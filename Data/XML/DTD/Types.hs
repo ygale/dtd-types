@@ -168,9 +168,9 @@ instance Typeable ContentDecl where
 
 -- | A model of structured content for an element.
 data ContentModel =
-     CMName Text Repeat
-   | CMChoice [ContentModel] Repeat
-   | CMSeq [ContentModel] Repeat
+     CMName Text Repeat             -- ^ Element name
+   | CMChoice [ContentModel] Repeat -- ^ Choices, delimited by @\"|\"@
+   | CMSeq [ContentModel] Repeat    -- ^ Sequence, delimited by @\",\"@
   deriving (Show, Eq)
 
 instance Typeable ContentModel where
@@ -200,9 +200,9 @@ instance Typeable AttrList where
 -- | A declaration of an attribute that can occur in an element.
 data AttrDecl =
      AttrDecl
-       { attrDeclName :: Text
-       , attrDeclType :: AttrType
-       , attrDeclDefault :: AttrDefault
+       { attrDeclName :: Text           -- ^ The name of the attribute
+       , attrDeclType :: AttrType       -- ^ The type of the attribute
+       , attrDeclDefault :: AttrDefault -- ^ The default value specification
        }
   deriving (Show, Eq)
 
@@ -211,27 +211,31 @@ instance Typeable AttrDecl where
 
 -- | The type of value that an attribute can take.
 data AttrType =
-     AttrStringType
-   | AttrIDType
-   | AttrIDRefType
-   | AttrIDRefsType
-   | AttrEntityType
-   | AttrEntitiesType
-   | AttrNmTokenType
-   | AttrNmTokensTYpe
-   | AttrEnumType [Text]
-   | AttrNotationType [Text]
+     AttrStringType           -- ^ Any text
+   | AttrIDType               -- ^ A unique ID
+   | AttrIDRefType            -- ^ A reference to an ID
+   | AttrIDRefsType           -- ^ One or more references to IDs
+   | AttrEntityType           -- ^ An unparsed external entity
+   | AttrEntitiesType         -- ^ One or more unparsed external entities
+   | AttrNmTokenType          -- ^ A name-like token
+   | AttrNmTokensTYpe         -- ^ One or more name-like tokens
+   | AttrEnumType [Text]      -- ^ One of the enumerated values
+   | AttrNotationType [Text]  -- ^ Specified by external syntax
+                              -- declared as a notation
   deriving (Show, Eq)
 
 instance Typeable AttrType where
   typeOf = typeString "AttrType"
 
--- | The default value of an attribute.
+-- | A default value specification for an attribute.
 data AttrDefault =
-     AttrRequired
-   | AttrImplied
-   | AttrFixed Text
-   | AttrDefaultValue Text
+     AttrRequired          -- ^ No default value; the attribute must always
+                           -- be supplied
+   | AttrImplied           -- ^ No default value; the attribute is optional
+   | AttrFixed Text        -- ^ When supplied, the attribute must have the
+                           -- given value
+   | AttrDefaultValue Text -- ^ The attribute has the given default value
+                           -- when not supplied
   deriving (Show, Eq)
 
 instance Typeable AttrDefault where
