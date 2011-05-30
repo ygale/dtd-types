@@ -107,7 +107,12 @@ data DTDComponent =
 instance Typeable DTDComponent where
   typeOf = typeString "DTDComponent"
 
--- | A declaration of an entity.
+-- | A declaration of an entity. An entity is a textual substitution
+-- variable. General entities can be referenced in an XML document
+-- conforming to the DTD, and parameter entities can be referenced in
+-- the DTD itself. The value of an unparsed entity is not specified in
+-- the DTD; it is specified by external syntax declared as a notation
+-- elsewhere in the DTD.
 data EntityDecl =
      InternalEntityDecl                   -- ^ An internal general entity
        { entityDeclName :: Text
@@ -170,7 +175,7 @@ instance Typeable ContentDecl where
 -- | A model of structured content for an element.
 data ContentModel =
      CMName Text Repeat             -- ^ Element name
-   | CMChoice [ContentModel] Repeat -- ^ Choices, delimited by @\"|\"@
+   | CMChoice [ContentModel] Repeat -- ^ Choice, delimited by @\"|\"@
    | CMSeq [ContentModel] Repeat    -- ^ Sequence, delimited by @\",\"@
   deriving (Show, Eq)
 
@@ -220,7 +225,7 @@ data AttrType =
    | AttrEntitiesType         -- ^ One or more unparsed external entities
    | AttrNmTokenType          -- ^ A name-like token
    | AttrNmTokensTYpe         -- ^ One or more name-like tokens
-   | AttrEnumType [Text]      -- ^ One of the enumerated values
+   | AttrEnumType [Text]      -- ^ One of the given values
    | AttrNotationType [Text]  -- ^ Specified by external syntax
                               -- declared as a notation
   deriving (Show, Eq)
