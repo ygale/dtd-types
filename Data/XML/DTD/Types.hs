@@ -58,6 +58,9 @@ module Data.XML.DTD.Types
   , AttrDecl (..)
   , AttrType (..)
   , AttrDefault
+
+    -- * Notation declarations
+  , Notation
   ) 
   where
 
@@ -232,6 +235,19 @@ data AttrDefault =
 
 instance Typeable AttrDefault where
   typeOf = typeString "AttrDefault"
+
+-- | A declaration of a notation. Note that we do not use the usual
+-- 'ExternalID' type here, because for notations it is only optional,
+-- not required, for a public ID to be accompanied also by a system
+-- ID.
+data Notation =
+     NotationSysID Text
+   | NotationPubID Text
+   | NotationPubSysID Text Text
+  deriving (Show, Eq)
+
+instance Typeable Notation where
+  typeOf = typeString "Notation"
 
 typeString :: String -> a -> TypeRep
 typeString str _ = mkTyConApp (mkTyCon ("Data.XML.DTD.Types." ++ str)) []
