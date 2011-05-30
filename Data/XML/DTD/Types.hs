@@ -39,7 +39,8 @@ with this file.
 
 module Data.XML.DTD.Types
   ( -- * DTD structure
-    DTD
+    DTD (..)
+  , DTDTextDecl (..)
   , DTDComponent (..)
 	
     -- * Entity declarations
@@ -66,11 +67,25 @@ import Data.Typeable ( Typeable, TypeRep, typeOf
 import Data.XML.Types (ExternalID)
 
 -- | A 'DTD' is a sequence components in any order.
-data DTD = DTD [DTDComponent]
+data DTD = DTD
+             { dtdTextDecl :: DTDTextDecl
+             , dtdComponents :: [DTDComponent]
+             }
   deriving (Show, Eq)
 
 instance Typeable DTD where
   typeOf = typeString "DTD"
+
+-- | The @?xml@ text declaration at the beginning of a DTD.
+data DTDTextDecl =
+     DTDTextDecl
+       { dtdXMLVersion :: Maybe Text,
+       , dtdEncoding :: Text
+       }
+  deriving (Show, Eq)
+
+instance Typeable DTDTextDecl where
+  typeOf = typeString "DTDTextDecl"
 
 -- | The kinds of components that can appear in a 'DTD'.
 data DTDComponent =
