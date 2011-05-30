@@ -138,7 +138,7 @@ instance Typeable ElementDecl where
 
 -- | The content that can occur in an element.
 data ContentDecl =
-   | ContentEmpty                   -- ^ No content
+     ContentEmpty                   -- ^ No content
    | ContentAny                     -- ^ Unrestricted content
    | ContentElement ContentModel    -- ^ Structured element content
    | ContentMixed [Text]            -- ^ A mixture of text and elements
