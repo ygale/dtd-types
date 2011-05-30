@@ -58,10 +58,10 @@ module Data.XML.DTD.Types
   , AttrList (..)
   , AttrDecl (..)
   , AttrType (..)
-  , AttrDefault
+  , AttrDefault (..)
 
     -- * Notation declarations
-  , Notation
+  , Notation (..)
   ) 
   where
 
