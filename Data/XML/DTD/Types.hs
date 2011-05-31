@@ -69,7 +69,7 @@ module Data.XML.DTD.Types
 import Data.Text (Text)
 import Data.Typeable ( Typeable, TypeRep, typeOf
                      , mkTyConApp, mkTyCon)
-import Data.XML.Types (ExternalID, Instruction)
+import Data.XML.Types (ExternalID, Name, Instruction)
 
 -- | A 'DTD' is a sequence components in any order.
 data DTD = DTD
@@ -155,7 +155,7 @@ type PERef = Text
 -- | A declaration of an element.
 data ElementDecl =
      ElementDecl
-      { eltDeclName :: Text
+      { eltDeclName :: Name
       , eltDeclContent :: ContentDecl
       }
   deriving (Show, Eq)
@@ -176,7 +176,7 @@ instance Typeable ContentDecl where
 
 -- | A model of structured content for an element.
 data ContentModel =
-     CMName Text Repeat             -- ^ Element name
+     CMName Name Repeat             -- ^ Element name
    | CMChoice [ContentModel] Repeat -- ^ Choice, delimited by @\"|\"@
    | CMSeq [ContentModel] Repeat    -- ^ Sequence, delimited by @\",\"@
   deriving (Show, Eq)
@@ -195,7 +195,7 @@ instance Typeable Repeat where
 -- | A list of attribute declarations for an element.
 data AttrList =
      AttrList
-       { attrListElementName :: Text -- ^ The name of the element to
+       { attrListElementName :: Name -- ^ The name of the element to
                                      -- which the attribute
                                      -- declarations apply
        , attrListDecls :: [AttrDecl]
@@ -208,7 +208,7 @@ instance Typeable AttrList where
 -- | A declaration of an attribute that can occur in an element.
 data AttrDecl =
      AttrDecl
-       { attrDeclName :: Text           -- ^ The name of the attribute
+       { attrDeclName :: Name           -- ^ The name of the attribute
        , attrDeclType :: AttrType       -- ^ The type of the attribute
        , attrDeclDefault :: AttrDefault -- ^ The default value specification
        }
