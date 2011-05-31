@@ -226,7 +226,7 @@ data AttrType =
    | AttrEntityType           -- ^ An unparsed external entity
    | AttrEntitiesType         -- ^ One or more unparsed external entities
    | AttrNmTokenType          -- ^ A name-like token
-   | AttrNmTokensTYpe         -- ^ One or more name-like tokens
+   | AttrNmTokensType         -- ^ One or more name-like tokens
    | AttrEnumType [Text]      -- ^ One of the given values
    | AttrNotationType [Text]  -- ^ Specified by external syntax
                               -- declared as a notation
