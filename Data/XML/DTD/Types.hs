@@ -69,7 +69,7 @@ module Data.XML.DTD.Types
 import Data.Text (Text)
 import Data.Typeable ( Typeable, TypeRep, typeOf
                      , mkTyConApp, mkTyCon)
-import Data.XML.Types (ExternalID)
+import Data.XML.Types (ExternalID, Instruction)
 
 -- | A 'DTD' is a sequence components in any order.
 data DTD = DTD
@@ -101,6 +101,7 @@ data DTDComponent =
    | DTDNotation Notation       -- ^ A notation declaration
    | DTDPERef PERef             -- ^ A parameter entity reference in
                                 -- the top-level flow of the DTD
+   | DTDInstruction Instruction -- ^ A processing instruction
    | DTDComment Text            -- ^ A comment
   deriving (Show, Eq)
 
