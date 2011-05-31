@@ -115,23 +115,24 @@ instance Typeable DTDComponent where
 -- the DTD; it is specified by external syntax declared as a notation
 -- elsewhere in the DTD.
 data EntityDecl =
-     InternalEntityDecl                   -- ^ An internal general entity
+     InternalEntityDecl
        { entityDeclName :: Text
        , entityDeclValue :: Text
-       }
-   | ExternalEntityDecl                   -- ^ An external general
+       }                                  -- ^ An internal general entity
+   | ExternalEntityDecl
+       { entityDeclName :: Text
+       , entityDeclID :: ExternalID
+       , entityDeclNotation :: Maybe Text
+       }                                  -- ^ An external general
                                           -- entity, parsed or
                                           -- unparsed. It is unparsed
                                           -- if a notation is
                                           -- specified.
-       { entityDeclName :: Text
-       , entityDeclID :: ExternalID
-       , entityDeclNotation :: Maybe Text
-       }
-   | ParameterEntityDecl                  -- ^ A parameter entity
+
+   | ParameterEntityDecl
        { entityDeclName :: Text
        , peDeclValue :: [PEContent]
-       }
+       }                                 -- ^ A parameter entity
   deriving (Show, Eq)
 
 instance Typeable EntityDecl where
