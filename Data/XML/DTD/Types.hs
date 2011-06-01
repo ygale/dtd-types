@@ -51,6 +51,7 @@ module Data.XML.DTD.Types
 
     -- * Element declarations
   , ElementDecl (..)
+  , ContentDecl (..)
   , ContentModel (..)
   , Repeat (..)
 
