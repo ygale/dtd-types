@@ -149,7 +149,8 @@ data PEContent =
 instance Typeable PEContent where
   typeOf = typeString "PEContent"
 
--- | A parameter entity reference
+-- | A parameter entity reference. It contains the name of the
+-- parameter entity that is being referenced.
 type PERef = Text
 
 -- | A declaration of an element.
