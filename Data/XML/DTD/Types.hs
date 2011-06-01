@@ -46,7 +46,7 @@ module Data.XML.DTD.Types
 	
     -- * Entity declarations and references
   , EntityDecl (..)
-  , PEContent (..)
+  , EntityValue (..)
   , PERef
 
     -- * Element declarations
@@ -115,39 +115,41 @@ instance Typeable DTDComponent where
 -- the DTD; it is specified by external syntax declared as a notation
 -- elsewhere in the DTD.
 data EntityDecl =
-     InternalEntityDecl
+     InternalGeneralEntityDecl
        { entityDeclName :: Text
-       , entityDeclValue :: Text
-       }                                  -- ^ An internal general entity
-   | ExternalEntityDecl
+       , entityDeclValue :: [EntityValue]
+       }
+   | ExternalGeneralEntityDecl
        { entityDeclName :: Text
        , entityDeclID :: ExternalID
        , entityDeclNotation :: Maybe Text
        }                                  -- ^ An external general
-                                          -- entity, parsed or
-                                          -- unparsed. It is unparsed
-                                          -- if a notation is
-                                          -- specified.
-
-   | ParameterEntityDecl
+                                          -- entity is unparsed if a
+                                          -- notation is specified.
+   | InternalParameterEntityDecl
        { entityDeclName :: Text
-       , peDeclValue :: [PEContent]
-       }                                 -- ^ A parameter entity
+       , entityDeclValue :: [EntityValue]
+       }
+   | ExternalParameterEntityDecl
+       { entityDeclName :: Text
+       , entityDeclID :: ExternalID
+       }
   deriving (Show, Eq)
 
 instance Typeable EntityDecl where
   typeOf = typeString "EntityDecl"
 
--- | Parameter entities need to be recursively resolved, so we
--- represent their content as a mixture of nested parameter entity
--- references and free text.
-data PEContent =
-     PEText Text
-   | PENested PERef
+-- | The value of an internal entity may contain references to
+-- parameter entities; these references need to be resolved to obtain
+-- the actual replacement value of the entity. So we represent the
+-- content as a mixture of parameter entity references and free text.
+data EntityValue =
+     EntityText Text
+   | EntityPERef PERef
   deriving (Show, Eq)
 
-instance Typeable PEContent where
-  typeOf = typeString "PEContent"
+instance Typeable EntityValue where
+  typeOf = typeString "EntityValue"
 
 -- | A parameter entity reference. It contains the name of the
 -- parameter entity that is being referenced.
