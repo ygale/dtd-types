@@ -46,7 +46,7 @@ module Data.XML.DTD.Types
 	
     -- * Entity declarations and references
   , EntityDecl (..)
-  , EntityValue (..)
+  , EntityContent (..)
   , PERef
 
     -- * Element declarations
@@ -117,7 +117,7 @@ instance Typeable DTDComponent where
 data EntityDecl =
      InternalGeneralEntityDecl
        { entityDeclName :: Text
-       , entityDeclValue :: [EntityValue]
+       , entityDeclValue :: [EntityContent]
        }
    | ExternalGeneralEntityDecl
        { entityDeclName :: Text
@@ -128,7 +128,7 @@ data EntityDecl =
                                           -- notation is specified.
    | InternalParameterEntityDecl
        { entityDeclName :: Text
-       , entityDeclValue :: [EntityValue]
+       , entityDeclValue :: [EntityContent]
        }
    | ExternalParameterEntityDecl
        { entityDeclName :: Text
@@ -142,14 +142,14 @@ instance Typeable EntityDecl where
 -- | The value of an internal entity may contain references to
 -- parameter entities; these references need to be resolved to obtain
 -- the actual replacement value of the entity. So we represent the
--- content as a mixture of parameter entity references and free text.
-data EntityValue =
+-- value as a mixture of parameter entity references and free text.
+data EntityContent =
      EntityText Text
    | EntityPERef PERef
   deriving (Show, Eq)
 
-instance Typeable EntityValue where
-  typeOf = typeString "EntityValue"
+instance Typeable EntityContent where
+  typeOf = typeString "EntityContent"
 
 -- | A parameter entity reference. It contains the name of the
 -- parameter entity that is being referenced.
