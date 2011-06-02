@@ -56,10 +56,10 @@ module Data.XML.DTD.Types
   , Repeat (..)
 
     -- * Attribute declarations
-  , AttrList (..)
-  , AttrDecl (..)
-  , AttrType (..)
-  , AttrDefault (..)
+  , AttList (..)
+  , AttDecl (..)
+  , AttType (..)
+  , AttDefault (..)
 
     -- * Notation declarations
   , Notation (..)
@@ -97,7 +97,7 @@ instance Typeable DTDTextDecl where
 data DTDComponent =
      DTDEntityDecl EntityDecl   -- ^ Entity declaration
    | DTDElementDecl ElementDecl -- ^ Element declaration
-   | DTDAttrList AttrList       -- ^ List of attribute declarions for
+   | DTDAttList AttList        -- ^ List of attribute declarions for
                                 -- an element
    | DTDNotation Notation       -- ^ A notation declaration
    | DTDPERef PERef             -- ^ A parameter entity reference in
@@ -197,61 +197,61 @@ instance Typeable Repeat where
   typeOf = typeString "Repeat"
 
 -- | A list of attribute declarations for an element.
-data AttrList =
-     AttrList
-       { attrListElementName :: Text -- ^ The name of the element to
-                                     -- which the attribute
-                                     -- declarations apply
-       , attrListDecls :: [AttrDecl]
+data AttList =
+     AttList
+       { attListElementName :: Text -- ^ The name of the element to
+                                    -- which the attribute
+                                    -- declarations apply
+       , attListDecls :: [AttDecl]
        }
   deriving (Show, Eq)
 
-instance Typeable AttrList where
-  typeOf = typeString "AttrList"
+instance Typeable AttList where
+  typeOf = typeString "AttList"
 
 -- | A declaration of an attribute that can occur in an element.
-data AttrDecl =
-     AttrDecl
-       { attrDeclName :: Text           -- ^ The name of the attribute
-       , attrDeclType :: AttrType       -- ^ The type of the attribute
-       , attrDeclDefault :: AttrDefault -- ^ The default value specification
+data AttDecl =
+     AttDecl
+       { attDeclName :: Text           -- ^ The name of the attribute
+       , attDeclType :: AttType        -- ^ The type of the attribute
+       , attDeclDefault :: AttDefault  -- ^ The default value specification
        }
   deriving (Show, Eq)
 
-instance Typeable AttrDecl where
-  typeOf = typeString "AttrDecl"
+instance Typeable AttDecl where
+  typeOf = typeString "AttDecl"
 
 -- | The type of value that an attribute can take.
-data AttrType =
-     AttrStringType           -- ^ Any text
-   | AttrIDType               -- ^ A unique ID
-   | AttrIDRefType            -- ^ A reference to an ID
-   | AttrIDRefsType           -- ^ One or more references to IDs
-   | AttrEntityType           -- ^ An unparsed external entity
-   | AttrEntitiesType         -- ^ One or more unparsed external entities
-   | AttrNmTokenType          -- ^ A name-like token
-   | AttrNmTokensType         -- ^ One or more name-like tokens
-   | AttrEnumType [Text]      -- ^ One of the given values
-   | AttrNotationType [Text]  -- ^ Specified by external syntax
-                              -- declared as a notation
+data AttType =
+     AttStringType           -- ^ Any text
+   | AttIDType               -- ^ A unique ID
+   | AttIDRefType            -- ^ A reference to an ID
+   | AttIDRefsType           -- ^ One or more references to IDs
+   | AttEntityType           -- ^ An unparsed external entity
+   | AttEntitiesType         -- ^ One or more unparsed external entities
+   | AttNmTokenType          -- ^ A name-like token
+   | AttNmTokensType         -- ^ One or more name-like tokens
+   | AttEnumType [Text]      -- ^ One of the given values
+   | AttNotationType [Text]  -- ^ Specified by external syntax
+                             -- declared as a notation
   deriving (Show, Eq)
 
-instance Typeable AttrType where
-  typeOf = typeString "AttrType"
+instance Typeable AttType where
+  typeOf = typeString "AttType"
 
 -- | A default value specification for an attribute.
-data AttrDefault =
-     AttrRequired          -- ^ No default value; the attribute must always
-                           -- be supplied
-   | AttrImplied           -- ^ No default value; the attribute is optional
-   | AttrFixed Text        -- ^ When supplied, the attribute must have the
-                           -- given value
-   | AttrDefaultValue Text -- ^ The attribute has the given default value
-                           -- when not supplied
+data AttDefault =
+     AttRequired          -- ^ No default value; the attribute must always
+                          -- be supplied
+   | AttImplied           -- ^ No default value; the attribute is optional
+   | AttFixed Text        -- ^ When supplied, the attribute must have the
+                          -- given value
+   | AttDefaultValue Text -- ^ The attribute has the given default value
+                          -- when not supplied
   deriving (Show, Eq)
 
-instance Typeable AttrDefault where
-  typeOf = typeString "AttrDefault"
+instance Typeable AttDefault where
+  typeOf = typeString "AttDefault"
 
 -- | A declaration of a notation.
 data Notation =
