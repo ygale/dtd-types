@@ -1,5 +1,5 @@
 name: dtd-types
-version: 0.3.0.0
+version: 0.3.0.1
 synopsis: Basic types for representing XML DTDs
 description:
   This package provides types to represent an XML Document Type
