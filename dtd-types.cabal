@@ -33,7 +33,6 @@ maintainer: gale@sefer.org
 category: Data, Text, XML
 build-type: Simple
 cabal-version: >=1.6
-category: Text, XML
 stability: experimental
 bug-reports: mailto:gale@sefer.org
 homepage: http://projects.haskell.org/dtd/
