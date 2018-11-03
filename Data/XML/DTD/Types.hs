@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveDataTypeable #-}
 ------------------------------------------------------------------------------
 -- |
 -- Module      :  Data.XML.DTD.Types
@@ -68,8 +69,7 @@ module Data.XML.DTD.Types
   where
 
 import Data.Text (Text)
-import Data.Typeable ( Typeable, TypeRep, typeOf
-                     , mkTyConApp, mkTyCon)
+import Data.Typeable (Typeable)
 import Data.XML.Types (ExternalID, Instruction)
 
 -- | A 'DTD' is a sequence components in any order.
@@ -77,10 +77,7 @@ data DTD = DTD
              { dtdTextDecl :: Maybe DTDTextDecl
              , dtdComponents :: [DTDComponent]
              }
-  deriving (Show, Eq)
-
-instance Typeable DTD where
-  typeOf = typeString "DTD"
+  deriving (Show, Eq, Typeable)
 
 -- | The @?xml@ text declaration at the beginning of a DTD.
 data DTDTextDecl =
@@ -88,10 +85,7 @@ data DTDTextDecl =
        { dtdXMLVersion :: Maybe Text
        , dtdEncoding :: Text
        }
-  deriving (Show, Eq)
-
-instance Typeable DTDTextDecl where
-  typeOf = typeString "DTDTextDecl"
+  deriving (Show, Eq, Typeable)
 
 -- | The kinds of components that can appear in a 'DTD'.
 data DTDComponent =
@@ -104,10 +98,7 @@ data DTDComponent =
                                 -- the top-level flow of the DTD
    | DTDInstruction Instruction -- ^ A processing instruction
    | DTDComment Text            -- ^ A comment
-  deriving (Show, Eq)
-
-instance Typeable DTDComponent where
-  typeOf = typeString "DTDComponent"
+  deriving (Show, Eq, Typeable)
 
 -- | A declaration of an entity. An entity is a textual substitution
 -- variable. General entities can be referenced in an XML document
@@ -135,10 +126,7 @@ data EntityDecl =
        { entityDeclName :: Text
        , entityDeclID :: ExternalID
        }
-  deriving (Show, Eq)
-
-instance Typeable EntityDecl where
-  typeOf = typeString "EntityDecl"
+  deriving (Show, Eq, Typeable)
 
 -- | The value of an internal entity may contain references to
 -- parameter entities; these references need to be resolved to obtain
@@ -147,10 +135,7 @@ instance Typeable EntityDecl where
 data EntityValue =
      EntityText Text
    | EntityPERef PERef
-  deriving (Show, Eq)
-
-instance Typeable EntityValue where
-  typeOf = typeString "EntityValue"
+  deriving (Show, Eq, Typeable)
 
 -- | A parameter entity reference. It contains the name of the
 -- parameter entity that is being referenced.
@@ -162,10 +147,7 @@ data ElementDecl =
       { eltDeclName :: Text
       , eltDeclContent :: ContentDecl
       }
-  deriving (Show, Eq)
-
-instance Typeable ElementDecl where
-  typeOf = typeString "ElementDecl"
+  deriving (Show, Eq, Typeable)
 
 -- | The content that can occur in an element.
 data ContentDecl =
@@ -173,28 +155,19 @@ data ContentDecl =
    | ContentAny                     -- ^ Unrestricted content
    | ContentElement ContentModel    -- ^ Structured element content
    | ContentMixed [Text]            -- ^ A mixture of text and elements
-  deriving (Show, Eq)
-
-instance Typeable ContentDecl where
-  typeOf = typeString "ContentDecl"
+  deriving (Show, Eq, Typeable)
 
 -- | A model of structured content for an element.
 data ContentModel =
      CMName Text Repeat             -- ^ Element name
    | CMChoice [ContentModel] Repeat -- ^ Choice, delimited by @\"|\"@
    | CMSeq [ContentModel] Repeat    -- ^ Sequence, delimited by @\",\"@
-  deriving (Show, Eq)
-
-instance Typeable ContentModel where
-  typeOf = typeString "ContentModel"
+  deriving (Show, Eq, Typeable)
 
 -- | The number of times a production of content model syntax can
 -- repeat.
 data Repeat = One | ZeroOrOne | ZeroOrMore | OneOrMore
-  deriving (Show, Eq)
-
-instance Typeable Repeat where
-  typeOf = typeString "Repeat"
+  deriving (Show, Eq, Typeable)
 
 -- | A list of attribute declarations for an element.
 data AttList =
@@ -204,10 +177,7 @@ data AttList =
                                     -- declarations apply
        , attListDecls :: [AttDecl]
        }
-  deriving (Show, Eq)
-
-instance Typeable AttList where
-  typeOf = typeString "AttList"
+  deriving (Show, Eq, Typeable)
 
 -- | A declaration of an attribute that can occur in an element.
 data AttDecl =
@@ -216,10 +186,7 @@ data AttDecl =
        , attDeclType :: AttType        -- ^ The type of the attribute
        , attDeclDefault :: AttDefault  -- ^ The default value specification
        }
-  deriving (Show, Eq)
-
-instance Typeable AttDecl where
-  typeOf = typeString "AttDecl"
+  deriving (Show, Eq, Typeable)
 
 -- | The type of value that an attribute can take.
 data AttType =
@@ -234,10 +201,7 @@ data AttType =
    | AttEnumType [Text]      -- ^ One of the given values
    | AttNotationType [Text]  -- ^ Specified by external syntax
                              -- declared as a notation
-  deriving (Show, Eq)
-
-instance Typeable AttType where
-  typeOf = typeString "AttType"
+  deriving (Show, Eq, Typeable)
 
 -- | A default value specification for an attribute.
 data AttDefault =
@@ -248,10 +212,7 @@ data AttDefault =
                           -- given value
    | AttDefaultValue Text -- ^ The attribute has the given default value
                           -- when not supplied
-  deriving (Show, Eq)
-
-instance Typeable AttDefault where
-  typeOf = typeString "AttDefault"
+  deriving (Show, Eq, Typeable)
 
 -- | A declaration of a notation.
 data Notation =
@@ -259,10 +220,7 @@ data Notation =
        { notationName :: Text,
          notationSource :: NotationSource
        }
-  deriving (Show, Eq)
-
-instance Typeable Notation where
-  typeOf = typeString "Notation"
+  deriving (Show, Eq, Typeable)
 
 -- | A source for a notation. We do not use the usual 'ExternalID'
 -- type here, because for notations it is only optional, not required,
@@ -271,10 +229,4 @@ data NotationSource =
      NotationSysID Text         -- ^ A system ID
    | NotationPubID Text         -- ^ A public ID
    | NotationPubSysID Text Text -- ^ A public ID with a system ID
-  deriving (Show, Eq)
-
-instance Typeable NotationSource where
-  typeOf = typeString "NotationSource"
-
-typeString :: String -> a -> TypeRep
-typeString str _ = mkTyConApp (mkTyCon ("Data.XML.DTD.Types." ++ str)) []
+  deriving (Show, Eq, Typeable)
