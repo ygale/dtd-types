@@ -65,7 +65,7 @@ module Data.XML.DTD.Types
     -- * Notation declarations
   , Notation (..)
   , NotationSource (..)
-  ) 
+  )
   where
 
 import Data.Text (Text)
