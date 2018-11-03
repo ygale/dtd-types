@@ -35,11 +35,11 @@ build-type: Simple
 cabal-version: >=1.6
 stability: experimental
 bug-reports: mailto:gale@sefer.org
-homepage: http://projects.haskell.org/dtd/
+homepage: https://ygale.github.io/dtd
 
 source-repository head
-  type: darcs
-  location: http://code.haskell.org/dtd/dtd-types/
+  type: git
+  location: https://github.com/ygale/dtd-types.git
 
 library
   build-depends:
